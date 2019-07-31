@@ -1,5 +1,8 @@
 package ainesh1998;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class Cube {
 
     private char[] up;
@@ -20,6 +23,10 @@ public class Cube {
         right = "RRRRRRRRR".toCharArray();
         front = "GGGGGGGGG".toCharArray();
         back = "BBBBBBBBB".toCharArray();
+    }
+
+    public ArrayList<char[]> getState() {
+        return new ArrayList<>(Arrays.asList(up, down, left, right, front, back));
     }
 
     public void upCw() {
