@@ -26,7 +26,7 @@ public class Cube {
     }
 
     public ArrayList<char[]> getState() {
-        return new ArrayList<>(Arrays.asList(up, down, left, right, front, back));
+        return new ArrayList<>(Arrays.asList(up, left, front, right, down, back));
     }
 
     public void upCw() {
@@ -124,7 +124,7 @@ public class Cube {
         right = rotateFaceCcw(right);
 
         // the other faces
-        for (int i = 2; i <= 6; i += 3) {
+        for (int i = 2; i <= 8; i += 3) {
             char temp = up[i];
             up[i] = back[8 - i];
             back[8 - i] = down[i];
@@ -202,36 +202,75 @@ public class Cube {
     }
 
     public void xCw() {
-//        char[] temp = front;
-//        front = up;
-//        up = back;
-//        back = down;
-//        down = temp;
-//
-//        // rotate faces to keep the labelling consistent
-//        left = rotateFaceCcw(left);
-//        right = rotateFaceCw(right);
-//
+        char[] temp = front;
+        front = down;
+        down = rotateFace180(back);
+        back = rotateFace180(up);
+        up = temp;
+
+        // rotate faces to keep the labelling consistent
+        left = rotateFaceCcw(left);
+        right = rotateFaceCw(right);
     }
 
     public void xCcw() {
+        char[] temp = front;
+        front = up;
+        up = rotateFace180(back);
+        back = rotateFace180(down);
+        down = temp;
 
+        // rotate faces to keep the labelling consistent
+        left = rotateFaceCw(left);
+        right = rotateFaceCcw(right);
     }
 
     public void yCw() {
+        char[] temp = front;
+        front = right;
+        right = back;
+        back = left;
+        left = temp;
 
+        // rotate faces to keep the labelling consistent
+        up = rotateFaceCw(up);
+        down = rotateFaceCcw(down);
     }
 
     public void yCcw() {
+        char[] temp = front;
+        front = left;
+        left = back;
+        back = right;
+        right = temp;
 
+        // rotate faces to keep the labelling consistent
+        up = rotateFaceCcw(up);
+        down = rotateFaceCw(down);
     }
 
     public void zCw() {
+        char[] temp = up;
+        up = rotateFaceCw(left);
+        left = rotateFaceCw(down);
+        down = rotateFaceCw(right);
+        right = rotateFaceCw(temp);
 
+        // rotate faces to keep the labelling consistent
+        front = rotateFaceCw(front);
+        back = rotateFaceCcw(back);
     }
 
     public void zCcw() {
+        char[] temp = up;
+        up = rotateFaceCcw(right);
+        right = rotateFaceCcw(down);
+        down = rotateFaceCcw(left);
+        left = rotateFaceCcw(temp);
 
+        // rotate faces to keep the labelling consistent
+        front = rotateFaceCcw(front);
+        back = rotateFaceCw(back);
     }
 
     private char[] rotateFaceCw(char[] faceToTurn) {
@@ -254,5 +293,15 @@ public class Cube {
             result[3 * i + 2] = faceToTurn[8 - i];
         }
         return result;
+    }
+
+    private char[] rotateFace180(char[] faceToTurn) {
+        // 8, 7, 6, 5, 4, 3, 2, 1, 0
+        for (int i = 0; i < 4; i++) {
+            char temp = faceToTurn[i];
+            faceToTurn[i] = faceToTurn[8 - i];
+            faceToTurn[8 - i] = temp;
+        }
+        return faceToTurn;
     }
 }
