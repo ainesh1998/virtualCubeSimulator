@@ -274,6 +274,10 @@ public class Cube {
         back = rotateFaceCw(back);
     }
 
+    boolean isSolved() {
+        return isSolvedFace(up) && isSolvedFace(down) && isSolvedFace(left) && isSolvedFace(right) && isSolvedFace(front) && isSolvedFace(back);
+    }
+
     void randomMovesScramble() {
         /*
         Just do 25 random moves and hope it's not too easy
@@ -294,10 +298,7 @@ public class Cube {
                 prev = chosenOne;
                 count++;
             }
-
         }
-
-
     }
 
     void randomStateScramble() {
@@ -337,11 +338,6 @@ public class Cube {
         }
 
         setScrambledState(edges, corners);
-    }
-
-    boolean isSolved() {
-        boolean result = true;
-        return result;
     }
 
     /*
@@ -425,8 +421,16 @@ public class Cube {
         left = faces.get(0); back = faces.get(1); right = faces.get(2); front = faces.get(3);
     }
 
+    private boolean isSolvedFace(char[] face) {
+        boolean result = true;
+        for (int i = 1; i < 9; i++) {
+            result = result && face[i] == face[0];
+        }
+        return result;
+    }
+
     /*
-        Double moves - private cause they are not a valid moves the user can do
+        Double moves - private because they are not a valid moves the user can do
      */
 
     private void up180() {

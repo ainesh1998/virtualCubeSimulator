@@ -141,6 +141,7 @@ public class App extends Application
                 break;
         }
 
+        if (cube.isSolved()) System.out.println("solved");
         drawCube();
     }
 
