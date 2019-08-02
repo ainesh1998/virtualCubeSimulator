@@ -2,6 +2,7 @@ package ainesh1998;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
 public class Cube {
 
@@ -16,7 +17,7 @@ public class Cube {
         resetCube();
     }
 
-    public void resetCube() {
+    void resetCube() {
         up = "WWWWWWWWW".toCharArray();
         down = "YYYYYYYYY".toCharArray();
         left = "OOOOOOOOO".toCharArray();
@@ -25,11 +26,11 @@ public class Cube {
         back = "BBBBBBBBB".toCharArray();
     }
 
-    public ArrayList<char[]> getState() {
+    ArrayList<char[]> getState() {
         return new ArrayList<>(Arrays.asList(up, left, front, right, down, back));
     }
 
-    public void upCw() {
+    void upCw() {
         up = rotateFaceCw(up);
 
         // the other faces
@@ -42,7 +43,7 @@ public class Cube {
         }
     }
 
-    public void upCcw() {
+    void upCcw() {
         up = rotateFaceCcw(up);
 
         // the other faces
@@ -55,7 +56,7 @@ public class Cube {
         }
     }
 
-    public void downCw() {
+    void downCw() {
         down = rotateFaceCw(down);
 
         // the other faces
@@ -68,7 +69,7 @@ public class Cube {
         }
     }
 
-    public void downCcw() {
+    void downCcw() {
         down = rotateFaceCcw(down);
 
         // the other faces
@@ -81,7 +82,7 @@ public class Cube {
         }
     }
 
-    public void leftCw() {
+    void leftCw() {
         left = rotateFaceCw(left);
 
         // the other faces
@@ -94,7 +95,7 @@ public class Cube {
         }
     }
 
-    public void leftCcw() {
+    void leftCcw() {
         left = rotateFaceCcw(left);
 
         // the other faces
@@ -107,7 +108,7 @@ public class Cube {
         }
     }
 
-    public void rightCw() {
+    void rightCw() {
         right = rotateFaceCw(right);
 
         // the other faces
@@ -120,7 +121,7 @@ public class Cube {
         }
     }
 
-    public void rightCcw() {
+    void rightCcw() {
         right = rotateFaceCcw(right);
 
         // the other faces
@@ -133,7 +134,7 @@ public class Cube {
         }
     }
 
-    public void frontCw() {
+    void frontCw() {
         front = rotateFaceCw(front);
 
         // the other faces
@@ -150,7 +151,7 @@ public class Cube {
         }
     }
 
-    public void frontCcw() {
+    void frontCcw() {
         front = rotateFaceCcw(front);
 
         // the other faces
@@ -167,7 +168,7 @@ public class Cube {
         }
     }
 
-    public void backCw() {
+    void backCw() {
         back = rotateFaceCw(back);
 
         // the other faces
@@ -184,7 +185,7 @@ public class Cube {
         }
     }
 
-    public void backCcw() {
+    void backCcw() {
         back = rotateFaceCcw(back);
 
         // the other faces
@@ -201,7 +202,7 @@ public class Cube {
         }
     }
 
-    public void xCw() {
+    void xCw() {
         char[] temp = front;
         front = down;
         down = rotateFace180(back);
@@ -213,7 +214,7 @@ public class Cube {
         right = rotateFaceCw(right);
     }
 
-    public void xCcw() {
+    void xCcw() {
         char[] temp = front;
         front = up;
         up = rotateFace180(back);
@@ -225,7 +226,7 @@ public class Cube {
         right = rotateFaceCcw(right);
     }
 
-    public void yCw() {
+    void yCw() {
         char[] temp = front;
         front = right;
         right = back;
@@ -237,7 +238,7 @@ public class Cube {
         down = rotateFaceCcw(down);
     }
 
-    public void yCcw() {
+    void yCcw() {
         char[] temp = front;
         front = left;
         left = back;
@@ -249,7 +250,7 @@ public class Cube {
         down = rotateFaceCw(down);
     }
 
-    public void zCw() {
+    void zCw() {
         char[] temp = up;
         up = rotateFaceCw(left);
         left = rotateFaceCw(down);
@@ -261,7 +262,7 @@ public class Cube {
         back = rotateFaceCcw(back);
     }
 
-    public void zCcw() {
+    void zCcw() {
         char[] temp = up;
         up = rotateFaceCcw(right);
         right = rotateFaceCcw(down);
@@ -272,6 +273,80 @@ public class Cube {
         front = rotateFaceCcw(front);
         back = rotateFaceCw(back);
     }
+
+    void randomMovesScramble() {
+        /*
+        Just do 25 random moves and hope it's not too easy
+         */
+        Runnable[] moves = {this::upCw, this::upCcw, this::up180, this::downCw, this::downCcw, this::down180,
+                            this::leftCw, this::leftCcw, this::left180, this::rightCw, this::rightCcw, this::right180,
+                            this::frontCw, this::frontCcw, this::front180, this::backCw, this::backCcw, this::back180};
+
+        Random rand = new Random();
+        int count = 0;
+        int prev = -1;
+
+        while (count < 25) {
+            int chosenOne = rand.nextInt(18);
+
+            if (chosenOne != prev) {
+                moves[chosenOne].run();
+                prev = chosenOne;
+                count++;
+            }
+
+        }
+
+
+    }
+
+    void randomStateScramble() {
+        /*
+        Perform some swaps, twists and flips on the cube, set its state, use Chen Shuang's solver to obtain an optimal
+        solution and invert it to obtain the scramble.
+        */
+
+        String[] edges = {"WB", "WR", "WG", "WO", "BO", "BR", "GR", "GO", "YB", "YR", "YG", "YO"};
+        String[] corners = {"WOB", "WBR", "WRG", "WGO", "YBO", "YRB", "YGR", "YOG"};
+        Random rand = new Random();
+
+        int edgeSwaps = rand.nextInt(5)*2 + 8;
+        for (int i = 0; i < edgeSwaps; i++) {
+            int edge1 = rand.nextInt(12);
+            int edge2 = rand.nextInt(12);
+            String temp = edges[edge1];
+            edges[edge1] = edges[edge2];
+            edges[edge2] = temp;
+        }
+
+        int cornerSwaps = rand.nextInt(5)*2 + 4;
+        for (int i = 0; i < cornerSwaps; i++) {
+            int corner1 = rand.nextInt(8);
+            int corner2 = rand.nextInt(8);
+            String temp = corners[corner1];
+            corners[corner1] = corners[corner2];
+            corners[corner2] = temp;
+        }
+
+        int flips = rand.nextInt(7)*2;
+        for (int i = 0; i < flips; i++) {
+            int flip1 = rand.nextInt(12);
+            int flip2 = rand.nextInt(12);
+            edges[flip1] = flipEdge(edges[flip1]);
+            edges[flip2] = flipEdge(edges[flip2]);
+        }
+
+        setScrambledState(edges, corners);
+    }
+
+    boolean isSolved() {
+        boolean result = true;
+        return result;
+    }
+
+    /*
+         Private methods
+     */
 
     private char[] rotateFaceCw(char[] faceToTurn) {
         char[] result = new char[9];
@@ -303,5 +378,84 @@ public class Cube {
             faceToTurn[8 - i] = temp;
         }
         return faceToTurn;
+    }
+
+    private String flipEdge(String edge) {
+        return edge.substring(1, 2) + edge.substring(0, 1);
+    }
+
+    private void setScrambledState(String[] edges, String[] corners) {
+
+        int[] topAndBottomIndices = {0, 1, 3, 2, 7, 6, 4, 5, 0, 3, 1, 2, 10, 11, 9, 8};
+        ArrayList<char[]> faces = new ArrayList<>(Arrays.asList(left, back, right, front));
+
+        for (int i = 0; i < 4; i++) {
+            // U and D faces
+
+            int cornerIndex = i < 2 ? 2*i : 2*i + 2;
+            int edgeIndex = 2*i + 1;
+
+            up[cornerIndex] = corners[topAndBottomIndices[i]].charAt(0);
+            down[cornerIndex] = corners[topAndBottomIndices[i + 4]].charAt(0);
+            up[edgeIndex] = edges[topAndBottomIndices[i + 8]].charAt(0);
+            down[edgeIndex] = edges[topAndBottomIndices[i + 12]].charAt(0);
+
+            // L, B, R, F faces
+
+            // top layer corners
+            faces.get(i)[0] = corners[i].charAt(1);
+            faces.get((i+1)%4)[2] = corners[i].charAt(2);
+
+            // top layer edges
+            faces.get((i+1)%4)[1] = edges[i].charAt(1);
+
+            // bottom layer corners
+            faces.get(i)[6] = corners[i+4].charAt(2);
+            faces.get((i+1)%4)[8] = corners[i+4].charAt(1);
+
+            // bottom layer edges
+            faces.get((i+1)%4)[7] = edges[i+8].charAt(1);
+
+            // E layer edges
+            int firstSticker = i%2 == 0 ? 0 : 1;
+            faces.get((i+1)%4)[5] = edges[i+4].charAt(firstSticker);
+            faces.get(i)[3] = edges[i+4].charAt(1 - firstSticker);
+        }
+
+        left = faces.get(0); back = faces.get(1); right = faces.get(2); front = faces.get(3);
+    }
+
+    /*
+        Double moves - private cause they are not a valid moves the user can do
+     */
+
+    private void up180() {
+        upCw();
+        upCw();
+    }
+
+    private void down180() {
+        downCw();
+        downCw();
+    }
+
+    private void left180() {
+        leftCw();
+        leftCw();
+    }
+
+    private void right180() {
+        rightCw();
+        rightCw();
+    }
+
+    private void front180() {
+        frontCw();
+        frontCw();
+    }
+
+    private void back180() {
+        backCw();
+        backCw();
     }
 }

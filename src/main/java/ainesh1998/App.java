@@ -1,21 +1,12 @@
 package ainesh1998;
 
 import javafx.application.Application;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -140,6 +131,9 @@ public class App extends Application
                 break;
             case P:
                 cube.zCw();
+                break;
+            case SPACE:
+                cube.randomMovesScramble();
                 break;
             case ESCAPE:
                 cube.resetCube();
