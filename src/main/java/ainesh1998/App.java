@@ -36,14 +36,19 @@ public class App extends Application
         // Initialise variables
         cube = new Cube();
         timer = new Timer();
-        Canvas canvas = new Canvas(500, 500);
+        Canvas canvas = new Canvas(500, 470);
         g = canvas.getGraphicsContext2D();
 
         // Set up scene
-        Group root = new Group(canvas, timer.timerLabel);
+        Group root = new Group();
         Scene scene = new Scene(root, 500, 600, Color.BLACK);
         stage.setScene(scene);
         stage.setTitle("3x3x3 Cube Simulator");
+        VBox vb = new VBox();
+        vb.setAlignment(Pos.CENTER);
+        vb.setPrefWidth(scene.getWidth());
+        vb.getChildren().addAll(canvas, timer.timerLabel);
+        root.getChildren().addAll(vb);
 
         // Set up user actions
         scene.setOnKeyPressed(this ::keyPressed);
@@ -55,8 +60,8 @@ public class App extends Application
 
     private void draw() {
         g.setFill(Color.BLACK);
-        g.clearRect(0, 0, 500, 500);
-        g.fillRect(0, 0, 500, 500);
+        g.clearRect(0, 0, 500, 470);
+        g.fillRect(0, 0, 500, 470);
         drawCube();
     }
 
