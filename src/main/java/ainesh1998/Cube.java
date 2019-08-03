@@ -1,8 +1,8 @@
 package ainesh1998;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import javafx.scene.input.KeyCode;
+
+import java.util.*;
 
 public class Cube {
 
@@ -12,9 +12,30 @@ public class Cube {
     private char[] right;
     private char[] front;
     private char[] back;
+    boolean isScrambled;
+    Map<KeyCode, Runnable> moves;
 
     public Cube() {
         resetCube();
+        moves = new HashMap<>();
+        moves.put(KeyCode.I, this::rightCw);
+        moves.put(KeyCode.K, this::rightCcw);
+        moves.put(KeyCode.E, this::leftCcw);
+        moves.put(KeyCode.D, this::leftCw);
+        moves.put(KeyCode.F, this::upCcw);
+        moves.put(KeyCode.J, this::upCw);
+        moves.put(KeyCode.G, this::frontCcw);
+        moves.put(KeyCode.H, this::frontCw);
+        moves.put(KeyCode.S, this::downCw);
+        moves.put(KeyCode.L, this::downCcw);
+        moves.put(KeyCode.W, this::backCw);
+        moves.put(KeyCode.O, this::backCcw);
+//        moves.put(KeyCode.Y, this::xCw);
+//        moves.put(KeyCode.B, this::xCcw);
+//        moves.put(KeyCode.A, this::yCcw);
+//        moves.put(KeyCode.SEMICOLON, this::yCw);
+//        moves.put(KeyCode.Q, this::zCcw);
+//        moves.put(KeyCode.P, this::zCw);
     }
 
     void resetCube() {
@@ -24,6 +45,7 @@ public class Cube {
         right = "RRRRRRRRR".toCharArray();
         front = "GGGGGGGGG".toCharArray();
         back = "BBBBBBBBB".toCharArray();
+        isScrambled = false;
     }
 
     ArrayList<char[]> getState() {
@@ -286,19 +308,25 @@ public class Cube {
                             this::leftCw, this::leftCcw, this::left180, this::rightCw, this::rightCcw, this::right180,
                             this::frontCw, this::frontCcw, this::front180, this::backCw, this::backCcw, this::back180};
 
+//        ArrayList<Runnable> moves = new ArrayList<>(this.moves.values());
+//        moves.addAll(12, Arrays.asList(this::up180, this::down180, this::left180, this::right180, this::front180, this::back180));
+
         Random rand = new Random();
         int count = 0;
         int prev = -1;
+        int prev2 = -1;
 
         while (count < 25) {
             int chosenOne = rand.nextInt(18);
 
-            if (chosenOne != prev) {
+            if (chosenOne/3 != prev/3 && chosenOne/6 != prev2/6) { // first condition is to prevent U U2 etc, second is for U D2 U2 etc
                 moves[chosenOne].run();
+                prev2 = prev;
                 prev = chosenOne;
                 count++;
             }
         }
+        isScrambled = true;
     }
 
     void randomStateScramble() {
