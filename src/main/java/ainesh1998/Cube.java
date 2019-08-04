@@ -4,6 +4,10 @@ import javafx.scene.input.KeyCode;
 
 import java.util.*;
 
+/**
+ *  The Cube itself.
+ */
+
 public class Cube {
 
     private char[] up;
@@ -308,6 +312,8 @@ public class Cube {
                             this::leftCw, this::leftCcw, this::left180, this::rightCw, this::rightCcw, this::right180,
                             this::frontCw, this::frontCcw, this::front180, this::backCw, this::backCcw, this::back180};
 
+        Runnable[] rotations = {this::xCw, this::xCcw, this::yCw, this::yCcw, this::zCw, this::zCcw};
+
 //        ArrayList<Runnable> moves = new ArrayList<>(this.moves.values());
 //        moves.addAll(12, Arrays.asList(this::up180, this::down180, this::left180, this::right180, this::front180, this::back180));
 
@@ -319,13 +325,20 @@ public class Cube {
         while (count < 25) {
             int chosenOne = rand.nextInt(18);
 
-            if (chosenOne/3 != prev/3 && chosenOne/6 != prev2/6) { // first condition is to prevent U U2 etc, second is for U D2 U2 etc
+            if (chosenOne / 3 != prev / 3 && chosenOne / 6 != prev2 / 6) { // first condition is to prevent U U2 etc, second is for U D2 U2 etc
                 moves[chosenOne].run();
                 prev2 = prev;
                 prev = chosenOne;
                 count++;
             }
         }
+
+        // Random orientation
+        for (int i = 0; i < 5; i++) {
+            int temp = rand.nextInt(6);
+            rotations[temp].run();
+        }
+
         isScrambled = true;
     }
 

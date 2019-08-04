@@ -7,26 +7,26 @@ import javafx.scene.control.Label;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ *  The timer, starts when the user makes a move after the cube has been scrambled.
+ */
 
 public class Timer extends AnimationTimer {
     boolean hasStarted;
     Label timerLabel;
-    Label minuteLabel;
-    DoubleProperty timeSeconds;
+//    DoubleProperty timeSeconds;
     private long startTime;
+    private double currentTime;
 
     Timer() {
         hasStarted = false;
-        timeSeconds = new SimpleDoubleProperty(0.00);
+//        timeSeconds = new SimpleDoubleProperty(0.00);
         timerLabel = new Label("0.00");
-        minuteLabel = new Label();
-        minuteLabel.setVisible(false);
 //        timerLabel.setLayoutX(185);
 //        timerLabel.setLayoutY(450);
 
         // Configure the Label
 //        timerLabel.textProperty().bind(timeSeconds.asString("%.2f"));
-        timerLabel.setTextFill(Color.WHITE);
         timerLabel.setFont(new Font("Courier", 50));
         timerLabel.setVisible(false);
     }
@@ -39,6 +39,7 @@ public class Timer extends AnimationTimer {
         }
 
         double time = (now-startTime)/Math.pow(10, 9);
+        currentTime = time;
 //        timeSeconds.set(time);
 //        Integer seconds = (int) time;
 //        String secondsString = seconds < 10 ? String.format("%01d", seconds) : seconds.toString();
@@ -59,6 +60,7 @@ public class Timer extends AnimationTimer {
     }
 
     void startTimer() {
+        timerLabel.setTextFill(Color.WHITE);
         timerLabel.setVisible(true);
         start();
     }
@@ -69,9 +71,13 @@ public class Timer extends AnimationTimer {
         timerLabel.setVisible(false);
     }
 
-    void stopTimer() {
+    double stopTimer() {
         stop();
         hasStarted = false;
+        return currentTime;
+    }
 
+    void startInspection() {
+        timerLabel.setTextFill(Color.RED);
     }
 }

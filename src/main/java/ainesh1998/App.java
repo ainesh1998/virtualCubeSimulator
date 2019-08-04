@@ -6,8 +6,11 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -16,8 +19,13 @@ import java.util.ArrayList;
 
 
 /**
- * Hello world!
+ * Sets up the scene and majority of the UI.
  *
+ */
+
+/* TODO: Add back face
+   TODO: Add inspection
+   TODO: Add stats
  */
 
 public class App extends Application
@@ -25,33 +33,49 @@ public class App extends Application
     private GraphicsContext g;
     private Cube cube;
     private Timer timer;
+    private ListView<Label> listView;
+    private Stats stats;
 
     public static void main( String[] args ) {
         launch(args);
     }
-
 
     @Override
     public void start(Stage stage) {
         // Initialise variables
         cube = new Cube();
         timer = new Timer();
+        stats = new Stats();
+
+        // Set up canvas
         Canvas canvas = new Canvas(500, 470);
         g = canvas.getGraphicsContext2D();
 
         // Set up scene
         Group root = new Group();
-        Scene scene = new Scene(root, 500, 600, Color.BLACK);
+        Scene scene = new Scene(root, 600, 600, Color.BLACK);
         stage.setScene(scene);
         stage.setTitle("3x3x3 Cube Simulator");
+
+        // Set up ListView
+        listView = new ListView<>();
+//        listView.setCellFactory(stringListView -> new CenteredListViewCell());
+
+        // VBox - for the canvas and timer
         VBox vb = new VBox();
         vb.setAlignment(Pos.CENTER);
-        vb.setPrefWidth(scene.getWidth());
+        vb.setPrefWidth(scene.getWidth()-100);
         vb.getChildren().addAll(canvas, timer.timerLabel);
-        root.getChildren().addAll(vb);
+
+        // HBox - holds the VBox on the left, and the ListView (of times) on the right
+        HBox hb = new HBox(vb, listView);
+//        hb.set
+        // add alignment stuff here and add listview (initialise it first)
+
+        root.getChildren().addAll(hb);
 
         // Set up user actions
-        scene.setOnKeyPressed(this ::keyPressed);
+        root.addEventFilter(KeyEvent.KEY_PRESSED, this::keyPressed);
 
         // Display the scene
         draw();
@@ -102,12 +126,12 @@ public class App extends Application
             if (cube.isScrambled && !timer.hasStarted) {
                 cube.isScrambled = false;
                 timer.startTimer();
-                System.out.println("timer has started!");
             }
 
             if (timer.hasStarted && cube.isSolved()) {
-                timer.stopTimer();
-                System.out.println("timer has stopped because you have solved the cube!");
+                double time = timer.stopTimer();
+                listView.getItems().addAll(new Label(String.format("%.2f", time)));
+                stats.addTime(time);
             }
         }
 
@@ -134,11 +158,13 @@ public class App extends Application
                 case ESCAPE:
                     cube.resetCube();
                     timer.resetTimer();
-                    System.out.println("DNF");
+                    listView.getItems().addAll(new Label("DNF"));
+                    stats.addTime(Double.POSITIVE_INFINITY);
                     break;
                 case SPACE:
                     if (!cube.isScrambled && !timer.hasStarted) {
                         cube.randomMovesScramble();
+                        timer.startInspection();
                     }
                     break;
                 default:
