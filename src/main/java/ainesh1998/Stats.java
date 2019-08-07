@@ -31,32 +31,9 @@ public class Stats {
 
     double getBestAvg5() {
         return calculateBestAvg(5);
-//        double currentBest = Double.POSITIVE_INFINITY;
-//        for (int i = 0; i < times.size() - 4; i++) {
-//            ArrayList<Double> temp = new ArrayList<>();
-//
-//            for (int j = i; j < i + 5; j++) {
-//                temp.add(times.get(j));
-//            }
-//
-//            Collections.sort(temp);
-//            double tempAvg = (temp.get(1) + temp.get(2) + temp.get(3))/3;
-//            if (tempAvg < currentBest) currentBest = tempAvg;
-//        }
-//        return currentBest;
     }
 
     double getCurrentAvg5() {
-//        if (times.size() < 5) {
-//            return Double.POSITIVE_INFINITY;
-//        }
-//
-//        ArrayList<Double> temp = new ArrayList<>();
-//        for (int i = 0; i < 5; i++) {
-//            temp.add(times.get(times.size() - i - 1));
-//        }
-//        Collections.sort(temp);
-//        return (temp.get(1) + temp.get(2) + temp.get(3))/3;
         return calculateCurrentAvg(5);
     }
 

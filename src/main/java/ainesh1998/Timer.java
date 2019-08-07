@@ -14,19 +14,14 @@ import javafx.scene.text.Font;
 public class Timer extends AnimationTimer {
     boolean hasStarted;
     Label timerLabel;
-//    DoubleProperty timeSeconds;
     private long startTime;
     private double currentTime;
 
     Timer() {
         hasStarted = false;
-//        timeSeconds = new SimpleDoubleProperty(0.00);
         timerLabel = new Label("0.00");
-//        timerLabel.setLayoutX(185);
-//        timerLabel.setLayoutY(450);
 
         // Configure the Label
-//        timerLabel.textProperty().bind(timeSeconds.asString("%.2f"));
         timerLabel.setFont(new Font("Courier", 50));
         timerLabel.setVisible(false);
     }
@@ -40,12 +35,6 @@ public class Timer extends AnimationTimer {
 
         double time = (now-startTime)/Math.pow(10, 9);
         currentTime = time;
-//        timeSeconds.set(time);
-//        Integer seconds = (int) time;
-//        String secondsString = seconds < 10 ? String.format("%01d", seconds) : seconds.toString();
-//
-//        Integer centiseconds = (int) ((time - seconds) * 100);
-//        String centiString = centiseconds < 10 ? String.format("%01d", centiseconds) : centiseconds.toString();
 
         if (time < 60) {
             String timeString = String.format("%.2f", time);

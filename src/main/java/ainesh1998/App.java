@@ -26,6 +26,7 @@ import java.util.ArrayList;
 /* TODO: Add back face
    TODO: Add inspection
    TODO: Add stats
+   TODO: Add confirmation when clearing session
  */
 
 public class App extends Application
@@ -94,16 +95,16 @@ public class App extends Application
 
         // draw U face
         for (int i = 0; i < 9; i++) {
-            int x = 200 + (33*i % 99);
+            int x = 150 + (33*i % 99);
             int y = 98 + (33 * (i/3));
             g.setFill(charToColour(cubeState.get(0)[i]));
             g.fillRect(x, y, 30, 30);
         }
 
-        // draw L, F, R faces
-        for (int j = 1; j < 4; j++) {
+        // draw L, F, R, B faces
+        for (int j = 1; j < 5; j++) {
             for (int i = 0; i < 9; i++) {
-                int x = j*100 + (33*i % 99) + (j*2 - 4);
+                int x = j*100 + (33*i % 99) + (j*2 - 4) - 50;
                 int y = 200 + (33 * (i/3));
                 g.setFill(charToColour(cubeState.get(j)[i]));
                 g.fillRect(x, y, 30, 30);
@@ -112,9 +113,9 @@ public class App extends Application
 
         // draw D face
         for (int i = 0; i < 9; i++) {
-            int x = 200 + (33*i % 99);
+            int x = 150 + (33*i % 99);
             int y = 302 + (33 * (i/3));
-            g.setFill(charToColour(cubeState.get(4)[i]));
+            g.setFill(charToColour(cubeState.get(5)[i]));
             g.fillRect(x, y, 30, 30);
         }
     }
@@ -156,10 +157,13 @@ public class App extends Application
                     cube.zCw();
                     break;
                 case ESCAPE:
-                    cube.resetCube();
-                    timer.resetTimer();
-                    listView.getItems().addAll(new Label("DNF"));
-                    stats.addTime(Double.POSITIVE_INFINITY);
+                    if (cube.isScrambled || timer.hasStarted) {
+                        cube.resetCube();
+                        timer.resetTimer();
+                        listView.getItems().addAll(new Label("DNF"));
+                        stats.addTime(Double.POSITIVE_INFINITY);
+                    }
+
                     break;
                 case SPACE:
                     if (!cube.isScrambled && !timer.hasStarted) {

@@ -34,12 +34,6 @@ public class Cube {
         moves.put(KeyCode.L, this::downCcw);
         moves.put(KeyCode.W, this::backCw);
         moves.put(KeyCode.O, this::backCcw);
-//        moves.put(KeyCode.Y, this::xCw);
-//        moves.put(KeyCode.B, this::xCcw);
-//        moves.put(KeyCode.A, this::yCcw);
-//        moves.put(KeyCode.SEMICOLON, this::yCw);
-//        moves.put(KeyCode.Q, this::zCcw);
-//        moves.put(KeyCode.P, this::zCw);
     }
 
     void resetCube() {
@@ -53,7 +47,7 @@ public class Cube {
     }
 
     ArrayList<char[]> getState() {
-        return new ArrayList<>(Arrays.asList(up, left, front, right, down, back));
+        return new ArrayList<>(Arrays.asList(up, left, front, right, back, down));
     }
 
     void upCw() {
