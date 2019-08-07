@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
+<HBox xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ainesh1998.App"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="600" prefWidth="600.0" alignment="CENTER" >
 
-</AnchorPane>
+    <Region HBox.hgrow="ALWAYS" />
+
+    <VBox prefWidth="500" prefHeight="600" alignment="CENTER">
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <Label text="Timer and cube go here" />
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <TableView prefWidth="500" prefHeight="100" />
+
+    </VBox>
+
+    <Region HBox.hgrow="ALWAYS" />
+
+    <ListView prefWidth="100" />
+</HBox>
