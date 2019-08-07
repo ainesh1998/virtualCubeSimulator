@@ -28,8 +28,7 @@ import java.util.ArrayList;
  *
  */
 
-/* TODO: Add back face
-   TODO: Add inspection
+/* TODO: Add inspection
    TODO: Add stats
    TODO: Add confirmation when clearing session
  */
