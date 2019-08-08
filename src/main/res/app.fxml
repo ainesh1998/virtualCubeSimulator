@@ -3,10 +3,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.scene.canvas.Canvas?>
 <HBox xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ainesh1998.App"
-            prefHeight="600" prefWidth="600.0" alignment="CENTER" >
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="ainesh1998.Controller"
+      style="-fx-background-color: black;"
+      prefHeight="600" prefWidth="600.0" alignment="CENTER">
 
     <Region HBox.hgrow="ALWAYS" />
 
@@ -14,11 +16,15 @@
 
         <Region VBox.vgrow="ALWAYS" />
 
-        <Label text="Timer and cube go here" />
+        <Label fx:id="timerLabel" style="-fx-text-fill: WHITE; -fx-font-size: 30px; -fx-font-family: Courier"/>
 
         <Region VBox.vgrow="ALWAYS" />
 
-        <TableView prefWidth="500" prefHeight="100" />
+        <Canvas fx:id="cubeCanvas" width="500" height="400" onKeyPressed="#keyPressed" />
+
+        <Region VBox.vgrow="ALWAYS" />
+
+        <TableView prefHeight="100" />
 
     </VBox>
 

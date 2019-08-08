@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Control;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
@@ -35,11 +36,11 @@ import java.util.ArrayList;
 
 public class App extends Application
 {
-    private GraphicsContext g;
-    private Cube cube;
-    private Timer timer;
-    private ListView<Label> listView;
-    private Stats stats;
+//    private GraphicsContext g;
+//    private Cube cube;
+//    private Timer timer;
+//    private ListView<Label> listView;
+//    private Stats stats;
 
     public static void main( String[] args ) {
         launch(args);
@@ -49,51 +50,16 @@ public class App extends Application
     public void start(Stage stage) throws IOException {
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("app.fxml"));
 
+//        Controller controller = new Controller();
+
+        Scene scene = new Scene(root, 600, 600, Color.BLACK);
+//        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> controller.keyPressed(event));
         stage.setTitle("3x3x3 Cube Simulator");
-        stage.setScene(new Scene(root, 600, 600));
+        stage.setScene(scene);
         stage.show();
 
     }
-        // Initialise variables
-//        cube = new Cube();
-//        timer = new Timer();
-//        stats = new Stats();
-//
-//        // Set up canvas
-//        Canvas canvas = new Canvas(500, 470);
-//        g = canvas.getGraphicsContext2D();
-//
-//        // Set up scene
-//        Group root = new Group();
-//        Scene scene = new Scene(root, 600, 600, Color.BLACK);
-//        stage.setScene(scene);
-//        stage.setTitle("3x3x3 Cube Simulator");
-//
-//        // Set up ListView
-//        listView = new ListView<>();
-////        listView.setCellFactory(stringListView -> new CenteredListViewCell());
-//
-//        // VBox - for the canvas and timer
-//        VBox vb = new VBox();
-//        vb.setAlignment(Pos.CENTER);
-//        vb.setPrefWidth(scene.getWidth()-100);
-//        vb.getChildren().addAll(canvas, timer.timerLabel);
-//
-//        // HBox - holds the VBox on the left, and the ListView (of times) on the right
-//        HBox hb = new HBox(vb, listView);
-////        hb.set
-//        // add alignment stuff here and add listview (initialise it first)
-//
-//        root.getChildren().addAll(hb);
-//
-//        // Set up user actions
-//        root.addEventFilter(KeyEvent.KEY_PRESSED, this::keyPressed);
-//
-//        // Display the scene
-//        draw();
-//        stage.show();
-//    }
-//
+
 //    private void draw() {
 //        g.setFill(Color.BLACK);
 //        g.clearRect(0, 0, 500, 470);
