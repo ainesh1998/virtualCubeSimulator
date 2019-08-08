@@ -2,9 +2,7 @@ package ainesh1998;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -19,20 +17,17 @@ public class Controller {
     @FXML
     private Label timerLabel;
 
-//    private GraphicsContext g;
     private Cube cube;
     private Timer timer;
     private Stats stats;
 
     public Controller() {
-
+        cube = new Cube();
+        timer = new Timer();
     }
 
     @FXML
     public void initialize() {
-        cube = new Cube();
-        timer = new Timer();
-//        g = cubeCanvas.getGraphicsContext2D();
         draw();
     }
 
@@ -73,7 +68,7 @@ public class Controller {
         }
     }
 
-    @FXML
+//    @FXML
     void keyPressed(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
         if (cube.moves.containsKey(code)) {

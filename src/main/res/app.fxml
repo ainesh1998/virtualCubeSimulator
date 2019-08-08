@@ -20,7 +20,7 @@
 
         <Region VBox.vgrow="ALWAYS" />
 
-        <Canvas fx:id="cubeCanvas" width="500" height="400" onKeyPressed="#keyPressed" />
+        <Canvas fx:id="cubeCanvas" width="500" height="400" />
 
         <Region VBox.vgrow="ALWAYS" />
 
@@ -31,4 +31,5 @@
     <Region HBox.hgrow="ALWAYS" />
 
     <ListView prefWidth="100" />
+
 </HBox>
