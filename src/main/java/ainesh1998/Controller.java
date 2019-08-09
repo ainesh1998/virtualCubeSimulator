@@ -1,10 +1,10 @@
 package ainesh1998;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
@@ -19,6 +19,12 @@ public class Controller {
     @FXML
     private Label timerLabel;
 
+    @FXML
+    private ListView<String> timeList;
+
+    @FXML
+    private TableView<String> statsTable;
+
     private Cube cube;
     private Timer timer;
     private Stats stats;
@@ -26,11 +32,13 @@ public class Controller {
     public Controller() {
         cube = new Cube();
         timer = new Timer();
+        stats = new Stats();
     }
 
     @FXML
     public void initialize() {
         timerLabel.textProperty().bind(timer.timerString);
+//        timeList.itemsProperty().bind(stats.stringTimes);
         draw();
     }
 
@@ -82,8 +90,8 @@ public class Controller {
 
             if (timer.hasStarted && cube.isSolved()) {
                 double time = timer.stopTimer();
-//                listView.getItems().addAll(new Label(String.format("%.2f", time)));
-//                stats.addTime(time);
+                timeList.getItems().add(timer.timerString.getValue());
+                stats.addTime(time);
             }
         }
 
@@ -111,8 +119,8 @@ public class Controller {
                     if (cube.isScrambled || timer.hasStarted) {
                         cube.resetCube();
                         timer.resetTimer();
-//                        listView.getItems().addAll(new Label("DNF"));
-//                        stats.addTime(Double.POSITIVE_INFINITY);
+                        stats.addTime(Double.POSITIVE_INFINITY);
+                        timeList.getItems().add("DNF");
                     }
 
                     break;

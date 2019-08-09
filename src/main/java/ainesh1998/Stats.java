@@ -1,22 +1,34 @@
 package ainesh1998;
 
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
+
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Stats {
 
+//    ListProperty<String> stringTimes;
     private ArrayList<Double> times;
 
     Stats() {
+//        stringTimes = new SimpleListProperty<>();
         times = new ArrayList<>();
     }
 
     void addTime(double time) {
         times.add(time);
+//        stringTimes.set(FXCollections.observableArrayList(asianCurrencyList));
+    }
+
+    void deleteTime() {
+
     }
 
     void clearSession() {
-        times = new ArrayList<>();
+        times.clear();
+//        stringTimes.clear();
     }
 
     double getBestTime() {
@@ -88,5 +100,16 @@ public class Stats {
 
         tempAvg = tempAvg/(count-2);
         return tempAvg;
+    }
+
+    String doubleToString(double time) {
+        if (time == Double.POSITIVE_INFINITY) return "DNF";
+
+        if (time < 60) return String.format("%.2f", time);
+
+        int minutes = (int) time/60;
+        double seconds = time - minutes*60;
+        String secondsString = seconds < 10 ? "0" + String.format("%.2f", seconds) : String.format("%.2f", seconds);
+        return minutes + ":" + secondsString;
     }
 }

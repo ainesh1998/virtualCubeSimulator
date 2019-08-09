@@ -1,35 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import javafx.scene.canvas.Canvas?>
-<HBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ainesh1998.Controller"
-      style="-fx-background-color: black;"
-      prefHeight="600" prefWidth="600.0" alignment="CENTER">
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox alignment="CENTER" prefHeight="600" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ainesh1998.Controller">
 
     <Region HBox.hgrow="ALWAYS" />
 
-    <VBox prefWidth="500" prefHeight="600" alignment="CENTER">
+    <VBox alignment="CENTER" prefHeight="600" prefWidth="500">
 
         <Region VBox.vgrow="ALWAYS" />
 
-        <Label fx:id="timerLabel" text="0.00" style="-fx-text-fill: WHITE; -fx-font-size: 40px; -fx-font-family: Courier"/>
+        <Label fx:id="timerLabel" style="-fx-text-fill: WHITE; -fx-font-size: 40px; -fx-font-family: Courier" text="0.00" />
 
         <Region VBox.vgrow="ALWAYS" />
 
-        <Canvas fx:id="cubeCanvas" width="500" height="400" />
+        <Canvas fx:id="cubeCanvas" height="400" width="500" />
 
         <Region VBox.vgrow="ALWAYS" />
 
-        <TableView prefHeight="100" />
+        <TableView fx:id="statsTable" prefHeight="100" />
 
     </VBox>
 
     <Region HBox.hgrow="ALWAYS" />
 
-    <ListView prefWidth="100" />
+    <ListView fx:id="timeList" prefWidth="100" />
 
 </HBox>
