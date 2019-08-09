@@ -1,5 +1,7 @@
 package ainesh1998;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
@@ -28,6 +30,7 @@ public class Controller {
 
     @FXML
     public void initialize() {
+        timerLabel.textProperty().bind(timer.timerString);
         draw();
     }
 
@@ -68,7 +71,6 @@ public class Controller {
         }
     }
 
-//    @FXML
     void keyPressed(KeyEvent keyEvent) {
         KeyCode code = keyEvent.getCode();
         if (cube.moves.containsKey(code)) {
@@ -117,7 +119,6 @@ public class Controller {
                 case SPACE:
                     if (!cube.isScrambled && !timer.hasStarted) {
                         cube.randomMovesScramble();
-                        timer.startInspection();
                     }
                     break;
                 default:

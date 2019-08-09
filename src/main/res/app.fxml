@@ -16,7 +16,7 @@
 
         <Region VBox.vgrow="ALWAYS" />
 
-        <Label fx:id="timerLabel" style="-fx-text-fill: WHITE; -fx-font-size: 30px; -fx-font-family: Courier"/>
+        <Label fx:id="timerLabel" text="0.00" style="-fx-text-fill: WHITE; -fx-font-size: 40px; -fx-font-family: Courier"/>
 
         <Region VBox.vgrow="ALWAYS" />
 

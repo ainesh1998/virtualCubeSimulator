@@ -12,7 +12,7 @@ import java.io.IOException;
 
 
 /**
- * Sets up the scene and majority of the UI.
+ * Starts the JavaFX application and sets up the scene.
  *
  */
 
@@ -35,11 +35,11 @@ public class App extends Application
 
         Controller controller = loader.getController();
 
+        // Set up scene
         Scene scene = new Scene(root, 600, 600, Color.BLACK);
-        scene.addEventFilter(KeyEvent.KEY_PRESSED, event -> controller.keyPressed(event));
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, controller::keyPressed);
         stage.setTitle("3x3x3 Cube Simulator");
         stage.setScene(scene);
         stage.show();
-
     }
 }
