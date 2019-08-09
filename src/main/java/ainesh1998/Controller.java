@@ -4,9 +4,9 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -22,8 +22,12 @@ public class Controller {
     @FXML
     private ListView<String> timeList;
 
-    @FXML
-    private TableView<String> statsTable;
+    @FXML private Label currBest;
+    @FXML private Label bestBest;
+    @FXML private Label currAo5;
+    @FXML private Label bestAo5;
+    @FXML private Label currAo12;
+    @FXML private Label bestAo12;
 
     private Cube cube;
     private Timer timer;
@@ -38,7 +42,6 @@ public class Controller {
     @FXML
     public void initialize() {
         timerLabel.textProperty().bind(timer.timerString);
-//        timeList.itemsProperty().bind(stats.stringTimes);
         draw();
     }
 
@@ -47,6 +50,7 @@ public class Controller {
         cubeCanvas.getGraphicsContext2D().clearRect(0, 0, cubeCanvas.getWidth(), cubeCanvas.getHeight());
         cubeCanvas.getGraphicsContext2D().fillRect(0, 0, cubeCanvas.getWidth(), cubeCanvas.getHeight());
         drawCube();
+        setStats();
     }
 
     private void drawCube() {
@@ -154,5 +158,25 @@ public class Controller {
             default:
                 return Color.BLACK;
         }
+    }
+
+    private void setStats() {
+        currBest.setText(doubleToString(stats.getCurrentTime()));
+        bestBest.setText(doubleToString(stats.getBestTime()));
+        currAo5.setText(doubleToString(stats.getCurrentAvg5()));
+        bestAo5.setText(doubleToString(stats.getBestAvg5()));
+        currAo12.setText(doubleToString(stats.getCurrentAvg12()));
+        bestAo12.setText(doubleToString(stats.getBestAvg12()));
+    }
+
+    String doubleToString(double time) {
+        if (time == Double.POSITIVE_INFINITY) return "DNF";
+
+        if (time < 60) return String.format("%.2f", time);
+
+        int minutes = (int) time/60;
+        double seconds = time - minutes*60;
+        String secondsString = seconds < 10 ? "0" + String.format("%.2f", seconds) : String.format("%.2f", seconds);
+        return minutes + ":" + secondsString;
     }
 }

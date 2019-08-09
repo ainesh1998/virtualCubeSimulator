@@ -8,6 +8,10 @@
 <?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
 
+<?import javafx.scene.control.TableColumn?>
+<?import com.sun.javafx.scene.control.skin.TableHeaderRow?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.text.Text?>
 <HBox alignment="CENTER" prefHeight="600" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/8.0.999-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ainesh1998.Controller">
 
     <Region HBox.hgrow="ALWAYS" />
@@ -24,7 +28,19 @@
 
         <Region VBox.vgrow="ALWAYS" />
 
-        <TableView fx:id="statsTable" prefHeight="100" />
+        <GridPane style="-fx-font-size:20px; -fx-text-inner-color: WHITE" prefHeight="100" prefWidth="500" alignment="CENTER" hgap="60" vgap="10">
+            <Text text="best" fill="grey" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+            <Text text="ao5" fill="grey"  GridPane.columnIndex="2" GridPane.rowIndex="0"/>
+            <Text text="ao12" fill="grey" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
+            <Text text="current" fill="grey" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+            <Text text="best" fill="grey" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+            <Label fx:id="currBest" textFill="white" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label fx:id="bestBest" textFill="white" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <Label fx:id="currAo5" textFill="white" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+            <Label fx:id="bestAo5" textFill="white" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+            <Label fx:id="currAo12" textFill="white" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+            <Label fx:id="bestAo12" textFill="white" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        </GridPane>
 
     </VBox>
 

@@ -9,17 +9,14 @@ import java.util.Collections;
 
 public class Stats {
 
-//    ListProperty<String> stringTimes;
     private ArrayList<Double> times;
 
     Stats() {
-//        stringTimes = new SimpleListProperty<>();
         times = new ArrayList<>();
     }
 
     void addTime(double time) {
         times.add(time);
-//        stringTimes.set(FXCollections.observableArrayList(asianCurrencyList));
     }
 
     void deleteTime() {
@@ -28,16 +25,17 @@ public class Stats {
 
     void clearSession() {
         times.clear();
-//        stringTimes.clear();
     }
 
     double getBestTime() {
+        if (times.size() == 0) return Double.POSITIVE_INFINITY;
         ArrayList<Double> sorted = times;
         Collections.sort(sorted);
         return sorted.get(0);
     }
 
     double getCurrentTime() {
+        if (times.size() == 0) return Double.POSITIVE_INFINITY;
         return times.get(times.size() - 1);
     }
 
@@ -100,16 +98,5 @@ public class Stats {
 
         tempAvg = tempAvg/(count-2);
         return tempAvg;
-    }
-
-    String doubleToString(double time) {
-        if (time == Double.POSITIVE_INFINITY) return "DNF";
-
-        if (time < 60) return String.format("%.2f", time);
-
-        int minutes = (int) time/60;
-        double seconds = time - minutes*60;
-        String secondsString = seconds < 10 ? "0" + String.format("%.2f", seconds) : String.format("%.2f", seconds);
-        return minutes + ":" + secondsString;
     }
 }
