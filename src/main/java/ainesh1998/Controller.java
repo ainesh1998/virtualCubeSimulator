@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -50,7 +49,6 @@ public class Controller {
         cubeCanvas.getGraphicsContext2D().clearRect(0, 0, cubeCanvas.getWidth(), cubeCanvas.getHeight());
         cubeCanvas.getGraphicsContext2D().fillRect(0, 0, cubeCanvas.getWidth(), cubeCanvas.getHeight());
         drawCube();
-        setStats();
     }
 
     private void drawCube() {
@@ -92,10 +90,12 @@ public class Controller {
                 timer.startTimer();
             }
 
-            if (timer.hasStarted && cube.isSolved()) {
+            if (!cube.isScrambled && timer.hasStarted && cube.isSolved()) {
                 double time = timer.stopTimer();
+                cube.isScrambled = false;
                 timeList.getItems().add(timer.timerString.getValue());
                 stats.addTime(time);
+                setStats();
             }
         }
 
@@ -125,6 +125,7 @@ public class Controller {
                         timer.resetTimer();
                         stats.addTime(Double.POSITIVE_INFINITY);
                         timeList.getItems().add("DNF");
+                        setStats();
                     }
 
                     break;
@@ -163,13 +164,13 @@ public class Controller {
     private void setStats() {
         currBest.setText(doubleToString(stats.getCurrentTime()));
         bestBest.setText(doubleToString(stats.getBestTime()));
-        currAo5.setText(doubleToString(stats.getCurrentAvg5()));
-        bestAo5.setText(doubleToString(stats.getBestAvg5()));
-        currAo12.setText(doubleToString(stats.getCurrentAvg12()));
-        bestAo12.setText(doubleToString(stats.getBestAvg12()));
+        currAo5.setText(doubleToString(stats.getCurrentAo5()));
+        bestAo5.setText(doubleToString(stats.getBestAo5()));
+        currAo12.setText(doubleToString(stats.getCurrentAo12()));
+        bestAo12.setText(doubleToString(stats.getBestAo12()));
     }
 
-    String doubleToString(double time) {
+    private String doubleToString(double time) {
         if (time == Double.POSITIVE_INFINITY) return "DNF";
 
         if (time < 60) return String.format("%.2f", time);

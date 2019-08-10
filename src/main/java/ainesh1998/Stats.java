@@ -1,22 +1,32 @@
 package ainesh1998;
 
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
-
 import java.util.ArrayList;
 import java.util.Collections;
 
 public class Stats {
 
     private ArrayList<Double> times;
+    private double bestBest;
+    private double bestAo5;
+    private double bestAo12;
 
     Stats() {
         times = new ArrayList<>();
+        bestBest = Double.POSITIVE_INFINITY;
+        bestAo5 = Double.POSITIVE_INFINITY;
+        bestAo12 = Double.POSITIVE_INFINITY;
     }
 
     void addTime(double time) {
         times.add(time);
+
+        // Update bests
+        if (time < bestBest) bestBest = time;
+
+        double tempAo5 = getCurrentAo5();
+        double tempAo12 = getCurrentAo12();
+        if (tempAo5 < bestAo5) bestAo5 = tempAo5;
+        if (tempAo12 < bestAo12) bestAo12 = tempAo12;
     }
 
     void deleteTime() {
@@ -28,10 +38,7 @@ public class Stats {
     }
 
     double getBestTime() {
-        if (times.size() == 0) return Double.POSITIVE_INFINITY;
-        ArrayList<Double> sorted = times;
-        Collections.sort(sorted);
-        return sorted.get(0);
+        return bestBest;
     }
 
     double getCurrentTime() {
@@ -39,19 +46,19 @@ public class Stats {
         return times.get(times.size() - 1);
     }
 
-    double getBestAvg5() {
-        return calculateBestAvg(5);
+    double getBestAo5() {
+        return bestAo5;
     }
 
-    double getCurrentAvg5() {
+    double getCurrentAo5() {
         return calculateCurrentAvg(5);
     }
 
-    double getBestAvg12() {
-        return calculateBestAvg(12);
+    double getBestAo12() {
+        return bestAo12;
     }
 
-    double getCurrentAvg12() {
+    double getCurrentAo12() {
         return calculateCurrentAvg(12);
     }
 
@@ -60,7 +67,7 @@ public class Stats {
      */
     private double calculateBestAvg(int count) {
         double currentBest = Double.POSITIVE_INFINITY;
-        for (int i = 0; i < times.size() - (count - 1); i++) {
+        for (int i = 0; i < times.size() - count + 1; i++) {
             ArrayList<Double> temp = new ArrayList<>();
 
             for (int j = i; j < i + count; j++) {

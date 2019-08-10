@@ -17,7 +17,8 @@ import java.io.IOException;
  */
 
 /* TODO: Add inspection
-   TODO: Add stats
+   TODO: Add numbers in listview
+   TODO: Make avg times get displayed when clicked
    TODO: Add confirmation when clearing session
  */
 

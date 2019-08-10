@@ -28,24 +28,24 @@
 
         <Region VBox.vgrow="ALWAYS" />
 
-        <GridPane style="-fx-font-size:20px; -fx-text-inner-color: WHITE" prefHeight="100" prefWidth="500" alignment="CENTER" hgap="60" vgap="10">
-            <Text text="best" fill="grey" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-            <Text text="ao5" fill="grey"  GridPane.columnIndex="2" GridPane.rowIndex="0"/>
-            <Text text="ao12" fill="grey" GridPane.columnIndex="3" GridPane.rowIndex="0"/>
-            <Text text="current" fill="grey" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-            <Text text="best" fill="grey" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
-            <Label fx:id="currBest" textFill="white" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <Label fx:id="bestBest" textFill="white" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <Label fx:id="currAo5" textFill="white" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Label fx:id="bestAo5" textFill="white" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-            <Label fx:id="currAo12" textFill="white" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-            <Label fx:id="bestAo12" textFill="white" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+        <GridPane style="-fx-font-size:15px;" prefHeight="100" prefWidth="500" alignment="CENTER" hgap="60" vgap="10">
+            <Text text="best" fill="grey" GridPane.columnIndex="1" GridPane.rowIndex="0" textAlignment="CENTER"/>
+            <Text text="ao5" fill="grey"  GridPane.columnIndex="2" GridPane.rowIndex="0" textAlignment="CENTER"/>
+            <Text text="ao12" fill="grey" GridPane.columnIndex="3" GridPane.rowIndex="0" textAlignment="CENTER"/>
+            <Text text="current" fill="grey" GridPane.columnIndex="0" GridPane.rowIndex="1" textAlignment="CENTER"/>
+            <Text text="best" fill="grey" GridPane.columnIndex="0" GridPane.rowIndex="2" textAlignment="CENTER"/>
+            <Label text="DNF" fx:id="currBest" textFill="white" GridPane.columnIndex="1" GridPane.rowIndex="1" alignment="CENTER"/>
+            <Label text="DNF" fx:id="bestBest" textFill="white" GridPane.columnIndex="1" GridPane.rowIndex="2" alignment="CENTER"/>
+            <Label text="DNF" fx:id="currAo5" textFill="white" GridPane.columnIndex="2" GridPane.rowIndex="1" alignment="CENTER"/>
+            <Label text="DNF" fx:id="bestAo5" textFill="white" GridPane.columnIndex="2" GridPane.rowIndex="2" alignment="CENTER"/>
+            <Label text="DNF" fx:id="currAo12" textFill="white" GridPane.columnIndex="3" GridPane.rowIndex="1" alignment="CENTER"/>
+            <Label text="DNF" fx:id="bestAo12" textFill="white" GridPane.columnIndex="3" GridPane.rowIndex="2" alignment="CENTER"/>
         </GridPane>
 
     </VBox>
 
     <Region HBox.hgrow="ALWAYS" />
 
-    <ListView fx:id="timeList" prefWidth="100" />
+    <ListView fx:id="timeList" prefWidth="100" editable="true"/>
 
 </HBox>
