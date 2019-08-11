@@ -1,5 +1,7 @@
 package ainesh1998;
 
+import ainesh1998.model.Cube;
+import ainesh1998.model.Stats;
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.control.Alert;

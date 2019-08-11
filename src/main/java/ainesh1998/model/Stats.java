@@ -1,4 +1,4 @@
-package ainesh1998;
+package ainesh1998.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -14,12 +14,12 @@ public class Stats {
     private double bestAo5;
     private double bestAo12;
 
-    Stats() {
+    public Stats() {
         times = new ArrayList<>();
         resetBests();
     }
 
-    void addTime(double time) {
+    public void addTime(double time) {
         times.add(time);
 
         // Update bests
@@ -31,37 +31,37 @@ public class Stats {
         if (tempAo12 < bestAo12) bestAo12 = tempAo12;
     }
 
-    void deleteTime() {
+    public void deleteTime() {
 
     }
 
-    void clearSession() {
+    public void clearSession() {
         times.clear();
         resetBests();
     }
 
-    double getBestTime() {
+    public double getBestTime() {
         return bestBest;
     }
 
-    double getCurrentTime() {
+    public double getCurrentTime() {
         if (times.size() == 0) return Double.POSITIVE_INFINITY;
         return times.get(times.size() - 1);
     }
 
-    double getBestAo5() {
+    public double getBestAo5() {
         return bestAo5;
     }
 
-    double getCurrentAo5() {
+    public double getCurrentAo5() {
         return calculateCurrentAvg(5);
     }
 
-    double getBestAo12() {
+    public double getBestAo12() {
         return bestAo12;
     }
 
-    double getCurrentAo12() {
+    public double getCurrentAo12() {
         return calculateCurrentAvg(12);
     }
 

@@ -2,6 +2,7 @@ package ainesh1998;
 
 import static org.junit.Assert.assertTrue;
 
+import ainesh1998.model.Stats;
 import org.junit.Test;
 
 /**

@@ -1,4 +1,4 @@
-package ainesh1998;
+package ainesh1998.model;
 
 import javafx.scene.input.KeyCode;
 
@@ -16,9 +16,9 @@ public class Cube {
     private char[] right;
     private char[] front;
     private char[] back;
-    boolean isScrambled;
-    Map<KeyCode, Runnable> moves;
-    Map<KeyCode, Runnable> rotations;
+    public boolean isScrambled;
+    public Map<KeyCode, Runnable> moves;
+    public Map<KeyCode, Runnable> rotations;
 
     public Cube() {
         resetCube();
@@ -45,7 +45,7 @@ public class Cube {
         rotations.put(KeyCode.P, this::zCw);
     }
 
-    void resetCube() {
+    public void resetCube() {
         up = "WWWWWWWWW".toCharArray();
         down = "YYYYYYYYY".toCharArray();
         left = "OOOOOOOOO".toCharArray();
@@ -55,7 +55,7 @@ public class Cube {
         isScrambled = false;
     }
 
-    ArrayList<char[]> getState() {
+    public ArrayList<char[]> getState() {
         return new ArrayList<>(Arrays.asList(up, left, front, right, back, down));
     }
 
@@ -303,11 +303,11 @@ public class Cube {
         back = rotateFaceCw(back);
     }
 
-    boolean isSolved() {
+    public boolean isSolved() {
         return isSolvedFace(up) && isSolvedFace(down) && isSolvedFace(left) && isSolvedFace(right) && isSolvedFace(front) && isSolvedFace(back);
     }
 
-    void randomMovesScramble() {
+    public void randomMovesScramble() {
         /*
         Just do 25 random moves and hope it's not too easy
          */
@@ -345,7 +345,7 @@ public class Cube {
         isScrambled = true;
     }
 
-    void randomStateScramble() {
+    public void randomStateScramble() {
         /*
         Perform some swaps, twists and flips on the cube, set its state, use Chen Shuang's solver to obtain an optimal
         solution and invert it to obtain the scramble.
