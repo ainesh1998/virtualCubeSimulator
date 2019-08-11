@@ -88,62 +88,88 @@ public class Controller {
         KeyCode code = keyEvent.getCode();
         if (cube.moves.containsKey(code)) {
             cube.moves.get(code).run();
-            if (cube.isScrambled && !timer.hasStarted) {
-                cube.isScrambled = false;
-                timer.startTimer();
-                timerLabel.setTextFill(Color.WHITE);
-            }
-
-            if (!cube.isScrambled && timer.hasStarted && cube.isSolved()) {
-                timer.stopTimer();
-                timeList.getItems().add(timer.getFinalTimeString());
-                stats.addTime(timer.getFinalTime());
-                setStats();
-            }
+            timerStartedOrStopped();
         }
 
         else if (cube.rotations.containsKey(code)) cube.rotations.get(code).run();
 
-        else if (code == KeyCode.BACK_SPACE) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Clear session?");
-            String s = "Are you sure you would like to clear this session?";
-            alert.setContentText(s);
-
-            Optional<ButtonType> result = alert.showAndWait();
-
-            if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
-                stats.clearSession();
-                timeList.getItems().clear();
-                setStats();
-            }
-        }
-
-        else {
-            switch (code) {
-                case ESCAPE:
-                    if (cube.isScrambled || timer.hasStarted) {
-                        cube.resetCube();
-                        timer.resetTimer();
-                        stats.addTime(Double.POSITIVE_INFINITY);
-                        timeList.getItems().add("DNF");
-                        setStats();
-                    }
-
-                    break;
-                case SPACE:
-                    if (!cube.isScrambled && !timer.hasStarted) {
-                        cube.randomMovesScramble();
-                        timer.startInspection();
-                        timerLabel.setTextFill(Color.RED);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
+        else if (code == KeyCode.ESCAPE) stopSolve();
+        else if (code == KeyCode.SPACE) startInspection();
+        else if (code == KeyCode.BACK_SPACE) clearSession();
 
         draw();
+    }
+
+    private void setStats() {
+        currBest.setText(doubleToString(stats.getCurrentTime()));
+        bestBest.setText(doubleToString(stats.getBestTime()));
+        currAo5.setText(doubleToString(stats.getCurrentAo5()));
+        bestAo5.setText(doubleToString(stats.getBestAo5()));
+        currAo12.setText(doubleToString(stats.getCurrentAo12()));
+        bestAo12.setText(doubleToString(stats.getBestAo12()));
+    }
+
+    private void timerStartedOrStopped() {
+        if (cube.isScrambled && !timer.hasStarted) {
+            cube.isScrambled = false;
+            timer.startTimer();
+            timerLabel.setTextFill(Color.WHITE);
+        }
+
+        if (!cube.isScrambled && timer.hasStarted && cube.isSolved()) {
+            timer.stopTimer();
+            timeList.getItems().add(timer.getFinalTimeString());
+            stats.addTime(timer.getFinalTime());
+            setStats();
+        }
+    }
+
+    private void startInspection() {
+        if (!cube.isScrambled && !timer.hasStarted) {
+            cube.randomMovesScramble();
+            timer.startInspection();
+            timerLabel.setTextFill(Color.RED);
+        }
+    }
+
+    private void stopSolve() {
+        if (cube.isScrambled || timer.hasStarted) {
+            cube.resetCube();
+            timer.resetTimer();
+            stats.addTime(Double.POSITIVE_INFINITY);
+            timerLabel.setTextFill(Color.WHITE);
+            timeList.getItems().add("DNF");
+            setStats();
+        }
+    }
+
+    private void clearSession() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Clear session?");
+        String s = "Are you sure you would like to clear this session?";
+        alert.setContentText(s);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+            stats.clearSession();
+            timeList.getItems().clear();
+            setStats();
+        }
+    }
+
+    /*
+          HELPER METHODS
+     */
+    private String doubleToString(double time) {
+        if (time == Double.POSITIVE_INFINITY) return "DNF";
+
+        if (time < 60) return String.format("%.2f", time);
+
+        int minutes = (int) time/60;
+        double seconds = time - minutes*60;
+        String secondsString = seconds < 10 ? "0" + String.format("%.2f", seconds) : String.format("%.2f", seconds);
+        return minutes + ":" + secondsString;
     }
 
     private Color charToColour(char c) {
@@ -163,25 +189,5 @@ public class Controller {
             default:
                 return Color.BLACK;
         }
-    }
-
-    private void setStats() {
-        currBest.setText(doubleToString(stats.getCurrentTime()));
-        bestBest.setText(doubleToString(stats.getBestTime()));
-        currAo5.setText(doubleToString(stats.getCurrentAo5()));
-        bestAo5.setText(doubleToString(stats.getBestAo5()));
-        currAo12.setText(doubleToString(stats.getCurrentAo12()));
-        bestAo12.setText(doubleToString(stats.getBestAo12()));
-    }
-
-    private String doubleToString(double time) {
-        if (time == Double.POSITIVE_INFINITY) return "DNF";
-
-        if (time < 60) return String.format("%.2f", time);
-
-        int minutes = (int) time/60;
-        double seconds = time - minutes*60;
-        String secondsString = seconds < 10 ? "0" + String.format("%.2f", seconds) : String.format("%.2f", seconds);
-        return minutes + ":" + secondsString;
     }
 }
