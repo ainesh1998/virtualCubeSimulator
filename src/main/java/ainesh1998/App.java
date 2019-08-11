@@ -16,8 +16,11 @@ import java.io.IOException;
  *
  */
 
-/* TODO: Add numbers in listview
+/* TODO: Add numbers in listView
    TODO: Make avg times get displayed when clicked
+   TODO: Make it possible to delete a specific time
+   TODO: Scrambles and reconstructions?
+   TODO: Store times in a database and save previous sessions?
  */
 
 public class App extends Application
