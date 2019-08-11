@@ -67,6 +67,7 @@ public class Timer extends AnimationTimer {
     }
 
     void startInspection() {
+        penalty = 0;
         start();
         startTime = System.nanoTime();
         isInspection = true;
