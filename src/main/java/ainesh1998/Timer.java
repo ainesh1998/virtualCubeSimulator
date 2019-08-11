@@ -10,6 +10,8 @@ import javafx.beans.property.StringProperty;
 
 public class Timer extends AnimationTimer {
     boolean hasStarted;
+    private boolean isInspection;
+    private int penalty;  // 0 is none, 1 is +2, 2 is DNF
     private long startTime;
     private double currentTime;
     StringProperty timerString;
@@ -17,21 +19,40 @@ public class Timer extends AnimationTimer {
     Timer() {
         timerString = new SimpleStringProperty();
         hasStarted = false;
+        isInspection = true;
+        penalty = 0;
     }
 
     @Override
     public void handle(long now) {
-        if (!hasStarted) {
-            startTime = now;
-            hasStarted = true;
+        currentTime = (now-startTime)/Math.pow(10, 9);
+
+        if (isInspection) {
+            if (currentTime > 15 && currentTime < 17) {
+                penalty = 1;
+                timerString.setValue("+2");
+            }
+
+            else if (currentTime > 17) {
+                penalty = 2;
+                timerString.setValue("DNF");
+            }
+
+            else {
+                int temp = 15 - (int) currentTime;
+                timerString.setValue(String.format("%d", temp));
+            }
+
         }
 
-        currentTime = (now-startTime)/Math.pow(10, 9);
-        setTimerString(currentTime);
+        else setTimerString(currentTime);
     }
 
     void startTimer() {
         start();
+        startTime = System.nanoTime();
+        hasStarted = true;
+        isInspection = false;
     }
 
     void resetTimer() {
@@ -40,10 +61,28 @@ public class Timer extends AnimationTimer {
         timerString.setValue("DNF");
     }
 
-    double stopTimer() {
+    void stopTimer() {
         stop();
         hasStarted = false;
-        return currentTime;
+    }
+
+    void startInspection() {
+        start();
+        startTime = System.nanoTime();
+        isInspection = true;
+    }
+
+
+    String getFinalTimeString() {
+        if (penalty == 0) return timerString.getValue();
+        if (penalty == 1) return timerString.getValue() + " +2";
+        return "DNF";
+    }
+
+    double getFinalTime() {
+        if (penalty == 0) return currentTime;
+        if (penalty == 1) return currentTime+2;
+        return Double.POSITIVE_INFINITY;
     }
 
     private void setTimerString(double time) {

@@ -91,10 +91,9 @@ public class Controller {
             }
 
             if (!cube.isScrambled && timer.hasStarted && cube.isSolved()) {
-                double time = timer.stopTimer();
-                cube.isScrambled = false;
-                timeList.getItems().add(timer.timerString.getValue());
-                stats.addTime(time);
+                timer.stopTimer();
+                timeList.getItems().add(timer.getFinalTimeString());
+                stats.addTime(timer.getFinalTime());
                 setStats();
             }
         }
@@ -132,6 +131,7 @@ public class Controller {
                 case SPACE:
                     if (!cube.isScrambled && !timer.hasStarted) {
                         cube.randomMovesScramble();
+                        timer.startInspection();
                     }
                     break;
                 default:
