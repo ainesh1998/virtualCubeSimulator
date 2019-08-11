@@ -10,7 +10,7 @@ import java.util.Collections;
 public class Stats {
 
     private ArrayList<Double> times;
-    private double bestBest;
+    private double bestSingle;
     private double bestAo5;
     private double bestAo12;
 
@@ -23,7 +23,7 @@ public class Stats {
         times.add(time);
 
         // Update bests
-        if (time < bestBest) bestBest = time;
+        if (time < bestSingle) bestSingle = time;
 
         double tempAo5 = getCurrentAo5();
         double tempAo12 = getCurrentAo12();
@@ -41,7 +41,7 @@ public class Stats {
     }
 
     public double getBestTime() {
-        return bestBest;
+        return bestSingle;
     }
 
     public double getCurrentTime() {
@@ -111,7 +111,7 @@ public class Stats {
     }
 
     private void resetBests() {
-        bestBest = Double.POSITIVE_INFINITY;
+        bestSingle = Double.POSITIVE_INFINITY;
         bestAo5 = Double.POSITIVE_INFINITY;
         bestAo12 = Double.POSITIVE_INFINITY;
     }

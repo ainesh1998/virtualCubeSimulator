@@ -30,8 +30,8 @@ public class Controller {
     @FXML
     private ListView<String> timeList;
 
-    @FXML private Label currBest;
-    @FXML private Label bestBest;
+    @FXML private Label currSingle;
+    @FXML private Label bestSingle;
     @FXML private Label currAo5;
     @FXML private Label bestAo5;
     @FXML private Label currAo12;
@@ -107,8 +107,8 @@ public class Controller {
     }
 
     private void setStats() {
-        currBest.setText(doubleToString(stats.getCurrentTime()));
-        bestBest.setText(doubleToString(stats.getBestTime()));
+        currSingle.setText(doubleToString(stats.getCurrentTime()));
+        bestSingle.setText(doubleToString(stats.getBestTime()));
         currAo5.setText(doubleToString(stats.getCurrentAo5()));
         bestAo5.setText(doubleToString(stats.getBestAo5()));
         currAo12.setText(doubleToString(stats.getCurrentAo12()));
