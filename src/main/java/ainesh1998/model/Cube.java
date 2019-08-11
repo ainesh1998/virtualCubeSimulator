@@ -311,14 +311,13 @@ public class Cube {
         /*
         Just do 25 random moves and hope it's not too easy
          */
+
+        resetCube();
         Runnable[] moves = {this::upCw, this::upCcw, this::up180, this::downCw, this::downCcw, this::down180,
                             this::leftCw, this::leftCcw, this::left180, this::rightCw, this::rightCcw, this::right180,
                             this::frontCw, this::frontCcw, this::front180, this::backCw, this::backCcw, this::back180};
 
         Runnable[] rotations = {this::xCw, this::xCcw, this::yCw, this::yCcw, this::zCw, this::zCcw};
-
-//        ArrayList<Runnable> moves = new ArrayList<>(this.moves.values());
-//        moves.addAll(12, Arrays.asList(this::up180, this::down180, this::left180, this::right180, this::front180, this::back180));
 
         Random rand = new Random();
         int count = 0;

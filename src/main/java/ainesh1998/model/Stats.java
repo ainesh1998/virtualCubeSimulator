@@ -68,28 +68,6 @@ public class Stats {
     /*
          PRIVATE METHODS
      */
-    private double calculateBestAvg(int count) {
-        double currentBest = Double.POSITIVE_INFINITY;
-        for (int i = 0; i < times.size() - count + 1; i++) {
-            ArrayList<Double> temp = new ArrayList<>();
-
-            for (int j = i; j < i + count; j++) {
-                temp.add(times.get(j));
-            }
-
-            Collections.sort(temp);
-            double tempAvg = 0.0;
-
-            for (int k = 1; k < count-1; k++) {
-                tempAvg += temp.get(k);
-            }
-
-            tempAvg = tempAvg/(count-2);
-            if (tempAvg < currentBest) currentBest = tempAvg;
-        }
-        return currentBest;
-    }
-
     private double calculateCurrentAvg(int count) {
         if (times.size() < count) {
             return Double.POSITIVE_INFINITY;
