@@ -3,6 +3,10 @@ package ainesh1998;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ *   Stores times and calculates averages etc.
+ */
+
 public class Stats {
 
     private ArrayList<Double> times;

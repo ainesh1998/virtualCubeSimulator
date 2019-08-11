@@ -13,6 +13,10 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ *   The Controller of app.fxml - handles the dynamic UI.
+ */
+
 public class Controller {
 
     @FXML
