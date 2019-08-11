@@ -2,6 +2,8 @@ package ainesh1998;
 
 import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.KeyCode;
@@ -9,6 +11,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Controller {
 
@@ -88,6 +91,7 @@ public class Controller {
             if (cube.isScrambled && !timer.hasStarted) {
                 cube.isScrambled = false;
                 timer.startTimer();
+                timerLabel.setTextFill(Color.WHITE);
             }
 
             if (!cube.isScrambled && timer.hasStarted && cube.isSolved()) {
@@ -98,26 +102,25 @@ public class Controller {
             }
         }
 
+        else if (cube.rotations.containsKey(code)) cube.rotations.get(code).run();
+
+        else if (code == KeyCode.BACK_SPACE) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Clear session?");
+            String s = "Are you sure you would like to clear this session?";
+            alert.setContentText(s);
+
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if ((result.isPresent()) && (result.get() == ButtonType.OK)) {
+                stats.clearSession();
+                timeList.getItems().clear();
+                setStats();
+            }
+        }
+
         else {
             switch (code) {
-                case Y:
-                    cube.xCw();
-                    break;
-                case B:
-                    cube.xCcw();
-                    break;
-                case A:
-                    cube.yCcw();
-                    break;
-                case SEMICOLON:
-                    cube.yCw();
-                    break;
-                case Q:
-                    cube.zCcw();
-                    break;
-                case P:
-                    cube.zCw();
-                    break;
                 case ESCAPE:
                     if (cube.isScrambled || timer.hasStarted) {
                         cube.resetCube();
@@ -132,6 +135,7 @@ public class Controller {
                     if (!cube.isScrambled && !timer.hasStarted) {
                         cube.randomMovesScramble();
                         timer.startInspection();
+                        timerLabel.setTextFill(Color.RED);
                     }
                     break;
                 default:

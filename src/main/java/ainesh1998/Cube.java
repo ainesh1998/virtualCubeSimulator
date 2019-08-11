@@ -18,6 +18,7 @@ public class Cube {
     private char[] back;
     boolean isScrambled;
     Map<KeyCode, Runnable> moves;
+    Map<KeyCode, Runnable> rotations;
 
     public Cube() {
         resetCube();
@@ -34,6 +35,14 @@ public class Cube {
         moves.put(KeyCode.L, this::downCcw);
         moves.put(KeyCode.W, this::backCw);
         moves.put(KeyCode.O, this::backCcw);
+
+        rotations = new HashMap<>();
+        rotations.put(KeyCode.Y, this::xCw);
+        rotations.put(KeyCode.B, this::xCcw);
+        rotations.put(KeyCode.A, this::yCcw);
+        rotations.put(KeyCode.SEMICOLON, this::yCw);
+        rotations.put(KeyCode.Q, this::zCcw);
+        rotations.put(KeyCode.P, this::zCw);
     }
 
     void resetCube() {

@@ -12,9 +12,7 @@ public class Stats {
 
     Stats() {
         times = new ArrayList<>();
-        bestBest = Double.POSITIVE_INFINITY;
-        bestAo5 = Double.POSITIVE_INFINITY;
-        bestAo12 = Double.POSITIVE_INFINITY;
+        resetBests();
     }
 
     void addTime(double time) {
@@ -35,6 +33,7 @@ public class Stats {
 
     void clearSession() {
         times.clear();
+        resetBests();
     }
 
     double getBestTime() {
@@ -105,5 +104,11 @@ public class Stats {
 
         tempAvg = tempAvg/(count-2);
         return tempAvg;
+    }
+
+    private void resetBests() {
+        bestBest = Double.POSITIVE_INFINITY;
+        bestAo5 = Double.POSITIVE_INFINITY;
+        bestAo12 = Double.POSITIVE_INFINITY;
     }
 }
