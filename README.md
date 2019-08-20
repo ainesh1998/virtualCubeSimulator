@@ -14,7 +14,7 @@ A solve can be stopped at any time by pressing the Escape key which marks it as 
 This is all the functionality as of now! I may extend on this in the future.
 
 ## Requirements
-You need to have <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html>Java Runtime Environment (JRE)</a> installed to run this app.
+You need to have <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html">Java Runtime Environment (JRE)</a> installed to run this app.
 
 ## Download
 To download this simulator, navigate to the "Releases" tab and download the .jar file. Double-click it to open the app. Enjoy!
