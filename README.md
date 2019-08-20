@@ -1,6 +1,6 @@
 # 3x3x3 Cube Simulator
 
-A virtual simulator of a 3x3x3 Rubik's Cube, which can be scrambled and solved, with the solve being timed and inspection being tracked. Initially a one-day project, I decided to spend more time and add extra functionality to it. This simulator is written in Java with JavaFX.
+A desktop application of a virtual 3x3x3 Rubik's Cube simulator, which can be scrambled and solved, with the solve being timed and inspection being tracked. Initially a one-day project, I decided to spend more time and add extra functionality to it. This simulator is written in Java with JavaFX.
 
 <img src="images/afterSolve.png" width=500>
 
@@ -12,6 +12,9 @@ The cube can be scrambled by hitting the Spacebar, which applies a random-move s
 A solve can be stopped at any time by pressing the Escape key which marks it as a DNF and resets the cube. The session can be cleared by hitting Backspace, which clears the list of times and the statistics.
 
 This is all the functionality as of now! I may extend on this in the future.
+
+## Requirements
+You need to have <a href="https://www.oracle.com/technetwork/java/javase/downloads/index.html>Java Runtime Environment (JRE)</a> installed to run this app.
 
 ## Download
 To download this simulator, navigate to the "Releases" tab and download the .jar file. Double-click it to open the app. Enjoy!
